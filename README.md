@@ -4,8 +4,14 @@ Main goal is to demonstrate the application architecture - an application cluste
 
 ```
 # /etc/sysconfig/docker must contain insecure registry for openshift
-oc cluster up --version=v1.3.0-alpha.2
-oc new-project container-con
+oc cluster up --version=latest
+
+# create git infrastructure
+oc new-project git --display-name="GIT REPO"
+oc create -f https://raw.githubusercontent.com/josefkarasek/eap-rolling-update/master/gogs-postgresql.json
+
+# create the app cluster
+oc new-project cluster --display-name="CLUSTER"
 
 # service account with secret
 oc create -f https://raw.githubusercontent.com/jboss-openshift/application-templates/master/secrets/eap7-app-secret.json
@@ -22,7 +28,7 @@ oc create -f https://raw.githubusercontent.com/josefkarasek/eap-rolling-update/m
 
 # build and deploy
 oc new-app --template=eap70-postgresql-demo-s2i -p \
-SOURCE_REPOSITORY_URL=https://github.com/josefkarasek/eap-rolling-update,\
+SOURCE_REPOSITORY_URL=http://gogs-cicd.10.40.3.24.xip.io/gogs/eap-rolling-update,\
 SOURCE_REPOSITORY_REF=master,\
 CONTEXT_DIR=greeter,\
 DB_JNDI=java:jboss/datasources/GreeterQuickstartDS,\
