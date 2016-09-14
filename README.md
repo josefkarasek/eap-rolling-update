@@ -3,12 +3,14 @@ This example app leverages the functionality of Kubernetes and OpenShift project
 Main goal is to demonstrate the application architecture - an application cluster that can be scaled and cluster nodes can survive restart.
 
 ```
-# /etc/sysconfig/docker must contain insecure registry for openshift
+# add --insecure-registry 172.30.0.0/16 to /etc/sysconfig/docker
 oc cluster up --version=latest
 
 # create git infrastructure
-oc new-project git --display-name="GIT REPO"
-oc create -f https://raw.githubusercontent.com/josefkarasek/eap-rolling-update/master/gogs-postgresql.json
+oc new-project git --display-name="GIT"
+oc process -f https://raw.githubusercontent.com/josefkarasek/eap-rolling-update/master/gogs-postgresql.json | oc create -f -
+oc deploy dc/postgresql-gogs --latest
+oc policy add-role-to-user view system:serviceaccount:$(oc project -q):default
 
 # create the app cluster
 oc new-project cluster --display-name="CLUSTER"
@@ -28,7 +30,7 @@ oc create -f https://raw.githubusercontent.com/josefkarasek/eap-rolling-update/m
 
 # build and deploy
 oc new-app --template=eap70-postgresql-demo-s2i -p \
-SOURCE_REPOSITORY_URL=http://gogs-cicd.10.40.3.24.xip.io/gogs/eap-rolling-update,\
+SOURCE_REPOSITORY_URL=http://gogs-git.10.40.3.24.xip.io/gogs/eap-rolling-update,\
 SOURCE_REPOSITORY_REF=master,\
 CONTEXT_DIR=greeter,\
 DB_JNDI=java:jboss/datasources/GreeterQuickstartDS,\
@@ -37,5 +39,5 @@ HTTPS_NAME=jboss,\
 HTTPS_PASSWORD=mykeystorepass,\
 JGROUPS_ENCRYPT_NAME=secret-key,\
 JGROUPS_ENCRYPT_PASSWORD=password,\
-IMAGE_STREAM_NAMESPACE=container-con
+IMAGE_STREAM_NAMESPACE=cluster
 ```

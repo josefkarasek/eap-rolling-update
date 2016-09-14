@@ -1,0 +1,22 @@
+* oc cluster up
+* oc project / oc whoami
+* go to web UI
+
+* create GIT namespace
+* go to web UI - register, migrate repo
+
+* create CLUSTER namespace
+* create all objects, start build
+* show pods, show logs -f
+* go to web UI - get webhook link
+* go to gogs, create webhook
+
+--- EAP should be started, 1 instance
+* go to the app, create user, greet user
+* scale app to 3 (or just two) replicas
+
+* git clone gogs repo
+* make a local change
+* git push
+* watch oc get pod
+* go to web UI during rolling update
