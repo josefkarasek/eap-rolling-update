@@ -41,3 +41,7 @@ JGROUPS_ENCRYPT_NAME=secret-key,\
 JGROUPS_ENCRYPT_PASSWORD=password,\
 IMAGE_STREAM_NAMESPACE=cluster
 ```
+
+### Acknowledgements
+[Gogs](https://gogs.io/) image based on [Erik Jacobs' image.](https://github.com/OpenShiftDemos/gogs-openshift-docker)
+Greeter demo application based on [EAP 7 quickstarts](https://github.com/jboss-developer/jboss-eap-quickstarts), distributed cache added by [Jiri Pechanec](https://github.com/jpechane/jboss-eap-quickstarts/tree/7.0.x-develop/greeter)
