@@ -22,6 +22,12 @@
             "required": true
         },
         {
+            "description": "Number of nodes in the cluster.",
+            "name": "NODES",
+            "value": "1",
+            "required": false
+        },
+        {
             "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix>",
             "name": "HOSTNAME_HTTP",
             "value": "",
@@ -436,7 +442,7 @@
                         "type": "ConfigChange"
                     }
                 ],
-                "replicas": 1,
+                "replicas": ${NODES},
                 "selector": {
                     "deploymentConfig": "${APPLICATION_NAME}"
                 },
