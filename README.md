@@ -40,7 +40,8 @@ HTTPS_NAME=jboss,\
 HTTPS_PASSWORD=mykeystorepass,\
 JGROUPS_ENCRYPT_NAME=secret-key,\
 JGROUPS_ENCRYPT_PASSWORD=password,\
-IMAGE_STREAM_NAMESPACE=cluster
+IMAGE_STREAM_NAMESPACE=cluster,\
+NODES=3
 ```
 
 ### Acknowledgements
