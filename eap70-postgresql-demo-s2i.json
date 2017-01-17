@@ -442,7 +442,7 @@
                         "type": "ConfigChange"
                     }
                 ],
-                "replicas": ${NODES},
+                "replicas": "${NODES}",
                 "selector": {
                     "deploymentConfig": "${APPLICATION_NAME}"
                 },
