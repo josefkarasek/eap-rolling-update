@@ -13,7 +13,7 @@ oc deploy dc/postgresql-gogs --latest
 oc policy add-role-to-user view system:serviceaccount:$(oc project -q):default
 
 # create the app cluster
-oc new-project cluster --display-name="CLUSTER"
+oc new-project cluster1 --display-name="CLUSTER"
 
 # service account with secret
 oc create -f https://raw.githubusercontent.com/jboss-openshift/application-templates/master/secrets/eap7-app-secret.json
@@ -30,18 +30,18 @@ oc create -f https://raw.githubusercontent.com/josefkarasek/eap-rolling-update/m
 
 # build and deploy
 # substitute SOURCE_REPOSITORY_URL with your gogs project URL
-oc new-app --template=eap70-postgresql-demo-s2i -p \
-SOURCE_REPOSITORY_URL=https://github.com/josefkarasek/eap-rolling-update,\
-SOURCE_REPOSITORY_REF=master,\
-CONTEXT_DIR=greeter,\
-DB_JNDI=java:jboss/datasources/GreeterQuickstartDS,\
-DB_DATABASE=USERS,\
-HTTPS_NAME=jboss,\
-HTTPS_PASSWORD=mykeystorepass,\
-JGROUPS_ENCRYPT_NAME=secret-key,\
-JGROUPS_ENCRYPT_PASSWORD=password,\
-IMAGE_STREAM_NAMESPACE=cluster,\
-NODES=3
+oc new-app --template=eap70-postgresql-demo-s2i \
+  -p SOURCE_REPOSITORY_URL=https://github.com/josefkarasek/eap-rolling-update \
+  -p SOURCE_REPOSITORY_REF=master \
+  -p CONTEXT_DIR=greeter \
+  -p DB_JNDI=java:jboss/datasources/GreeterQuickstartDS \
+  -p DB_DATABASE=USERS \
+  -p HTTPS_NAME=jboss \
+  -p HTTPS_PASSWORD=mykeystorepass \
+  -p JGROUPS_ENCRYPT_NAME=secret-key \
+  -p JGROUPS_ENCRYPT_PASSWORD=password \
+  -p IMAGE_STREAM_NAMESPACE=cluster1 \
+  -p NODES=3
 ```
 
 ### Acknowledgements
