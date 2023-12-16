@@ -47,7 +47,7 @@
     <repositories>
         <repository>
             <id>jboss-developer-staging-repository</id>
-            <url>http://jboss-developer.github.io/temp-maven-repo/</url>
+            <url>https://jboss-developer.github.io/temp-maven-repo/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -70,7 +70,7 @@
     <pluginRepositories>
         <pluginRepository>
             <id>jboss-developer-staging-repository</id>
-            <url>http://jboss-developer.github.io/temp-maven-repo/</url>
+            <url>https://jboss-developer.github.io/temp-maven-repo/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
